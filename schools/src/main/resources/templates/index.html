@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <script type="text/javascript" th:src="@{/jquery-2.1.4.min.js}">
+    </script>
+    <script type="text/javascript">
+        $(function(){
+            $("button[no]").click(function(){
+                var no=$(this).attr("no");
+                location.href="query?pageNo="+no;
+            })
+        })
+    </script>
+</head>
+<body>
+<div>
+    <table>
+        <tr >
+            <td>姓名</td>
+            <td>生日</td>
+            <td>性别</td>
+            <td>电话</td>
+            <td>班级</td>
+        </tr>
+        <tr th:each="p:${pageInfo.list}" >
+            <td th:text="${p.sname}"></td>
+            <td th:text="${#dates.format(p.birthday,'yyyy-MM-dd')}"></td>
+            <td th:text="${p.gender}"></td>
+            <td th:text="${p.telephone}"></td>
+            <td th:text="${p.Classes.cname}"></td>
+        </tr>
+     </table>
+        <button th:no="1">首页</button>
+        <button th:no="${pageInfo.prePage }">上一页</button>
+        <button th:no="${pageInfo.nextPage }">下一页</button>
+        <button th:no="${pageInfo.pages }">末页</button>
+        第<span th:text="${pageInfo.pageNum}"></span>页 /共<span th:text="${pageInfo.pages}"></span>页
+   </div>
+</body>
+</html>
